@@ -1,9 +1,7 @@
-const { request } = require("express");
-
 const CustomerModel = require("../models/CustomerModel");
 
 module.exports = {
-  index: (req, res, next) => {
+  index: (_req, res) => {
     CustomerModel.find({}, (err, result) => {
       if (err) {
         return res.status(500).json({
@@ -11,19 +9,19 @@ module.exports = {
           error: err,
         });
       }
-
       res.json(result);
     });
   },
 
-  create: (req, res, next) => {
+  create: (req, res) => {
     const customer = new CustomerModel({
       name: req.body.name,
       email: req.body.email,
       mobile: req.body.mobile,
       deliveryAddress: req.body.deliveryAddress,
-      product: req.body.product,
+      orders: req.body.orders,
     });
+
     customer.save((err, customer) => {
       if (err) {
         return res.status(500).json({
@@ -34,10 +32,10 @@ module.exports = {
       return res.status(201).json(customer);
     });
   },
-  delete: (req, res, next) => {
+  delete: (req, res) => {
     const id = req.params.id;
 
-    CustomerModel.findByIdAndRemove(id, (err, customer) => {
+    CustomerModel.findByIdAndRemove(id, (err, _customer) => {
       if (err) {
         return res.status(500).json({
           message: "Error while deleting Customer",

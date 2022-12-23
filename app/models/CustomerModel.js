@@ -24,10 +24,12 @@ const CustomerSchema = new Schema({
       required: true,
     },
   },
-  product: {
-    type: String,
-    required: true,
-  },
+  orders: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Order",
+    },
+  ],
 });
 
 module.exports = mongoose.model("customers", CustomerSchema);
