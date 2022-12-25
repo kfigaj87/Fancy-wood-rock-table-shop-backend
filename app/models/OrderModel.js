@@ -12,8 +12,8 @@ const OrderSchema = new Schema({
   },
   customer: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Order",
+    ref: "Customer",
   },
 });
 
-module.exports = mongoose.model("orders", OrderSchema);
+module.exports = mongoose.model("Order", OrderSchema);

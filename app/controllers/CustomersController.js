@@ -2,15 +2,18 @@ const CustomerModel = require("../models/CustomerModel");
 
 module.exports = {
   index: (_req, res) => {
-    CustomerModel.find({}, (err, result) => {
-      if (err) {
-        return res.status(500).json({
-          message: "Error while fetching Customers",
-          error: err,
-        });
-      }
-      res.json(result);
-    });
+    CustomerModel.find({})
+      .populate("orders")
+      .lean()
+      .exec((err, result) => {
+        if (err) {
+          return res.status(500).json({
+            message: "Error while fetching Customers",
+            error: err,
+          });
+        }
+        res.json(result);
+      });
   },
 
   create: (req, res) => {
@@ -19,7 +22,6 @@ module.exports = {
       email: req.body.email,
       mobile: req.body.mobile,
       deliveryAddress: req.body.deliveryAddress,
-      orders: req.body.orders,
     });
 
     customer.save((err, customer) => {
