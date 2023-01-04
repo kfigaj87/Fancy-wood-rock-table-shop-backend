@@ -11,7 +11,7 @@ module.exports = {
         if (!customer) {
           const newCustomer = new CustomerModel(req.body.customer);
           const newOrder = new OrderModel({
-            ...res.body,
+            ...req.body,
             customer: newCustomer._id,
           });
 
@@ -36,7 +36,7 @@ module.exports = {
           customer.orders.push(newOrder._id);
           newOrder.save((err, order) => {
             if (err) res.send("err");
-            res.json(order);
+            res.json({ ...order, message: "Order done" });
           });
         }
       }
