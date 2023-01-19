@@ -2,14 +2,18 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
-  productConfig: {
+  product: {
     type: String,
     required: true,
   },
-  totalPrice: {
-    type: Number,
-    required: true,
+
+  productConfig: {
+    tableMaterial: String,
+    tableColor: Object,
+    objects: Object,
+    objectColor: Object,
   },
+
   customer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Customer",

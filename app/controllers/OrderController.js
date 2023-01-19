@@ -1,6 +1,8 @@
 const OrderModel = require("../models/OrderModel");
 const CustomerModel = require("../models/CustomerModel");
 
+const mailHelper = require('../helpers/mailHelper')
+
 module.exports = {
   create: (req, res) => {
     CustomerModel.findOne(
@@ -36,6 +38,7 @@ module.exports = {
           customer.orders.push(newOrder._id);
           newOrder.save((err, order) => {
             if (err) res.send("err");
+            mailHelper.sendMail(order, customer)
             res.json({ ...order, message: "Order done" });
           });
         }
