@@ -6,15 +6,15 @@ function sendMail(order, customer) {
     port: 465,
     host: "smtp.gmail.com",
     auth: {
-      user: "karolfigaj87@gmail.com",
-      pass: "uoqbaosdsmzwxqnh",
+      user: "youremail@gmail.com",
+      pass: "password",
     },
     secure: true,
     tls: { rejectUnauthorized: false },
   });
 
   const mailOptions = {
-    from: "karolfigaj87@gmail.com",
+    from: "youremail@gmail.com",
     to: customer.email,
     subject: `Congratulations! You have just placed an order for a product: ${order.product}`,
     text: "That was easy!",
